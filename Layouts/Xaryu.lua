@@ -179,9 +179,13 @@ function layout:Initialize(frame)
 
     frame.HealthText:SetPoint("CENTER", frame.HealthBar)
     frame.HealthText:SetShadowOffset(0, 0)
+	frame.HealthText:SetDrawLayer("OVERLAY", 7)
+	frame.HealthText:SetParent(frame.HealthBar)
 
     frame.PowerText:SetPoint("CENTER", frame.PowerBar)
     frame.PowerText:SetShadowOffset(0, 0)
+	frame.PowerText:SetDrawLayer("OVERLAY", 7)
+	frame.PowerText:SetParent(frame.PowerBar)
 
     hpUnderlay = frame.TexturePool:Acquire()
     hpUnderlay:SetParent(frame)

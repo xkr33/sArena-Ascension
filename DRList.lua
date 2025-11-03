@@ -1,138 +1,202 @@
 sArenaMixin.drList = {
-    [207167]  = "Disorient",       -- Blinding Sleet
-    [207685]  = "Disorient",       -- Sigil of Misery
-    [2637]    = "Disorient",       -- Hibernate
-    [33786]   = "Disorient",       -- Cyclone
-    [209753]  = "Disorient",       -- Cyclone (Honor talent)
-    [31661]   = "Disorient",       -- Dragon's Breath
-    [198909]  = "Disorient",       -- Song of Chi-ji
-    [202274]  = "Disorient",       -- Incendiary Brew
-    [105421]  = "Disorient",       -- Blinding Light
-    [605]     = "Disorient",       -- Mind Control
-    [8122]    = "Disorient",       -- Psychic Scream
-    [226943]  = "Disorient",       -- Mind Bomb
-    [2094]    = "Disorient",       -- Blind
-    [118699]  = "Disorient",       -- Fear
-    [6358]    = "Disorient",       -- Seduction (Succubus)
-    [115268]  = "Disorient",       -- Mesmerize (Shivarra)
-    [5246]    = "Disorient",       -- Intimidating Shout
+    -- INCAPACITATE
+    ["Polymorph"]                       = { category = "incapacitate", iconId = 118 },
+    ["Polymorph: Turtle"]               = { category = "incapacitate", iconId = 28272 },
+    ["Polymorph: Pig"]                  = { category = "incapacitate", iconId = 28271 },
+    ["Polymorph: Snake"]                = { category = "incapacitate", iconId = 61780 },
+    ["Polymorph: Black Cat"]            = { category = "incapacitate", iconId = 61305 },
+    ["Polymorph: Turkey"]               = { category = "incapacitate", iconId = 61721 },
+    ["Polymorph: Rabbit"]               = { category = "incapacitate", iconId = 61780 },
+    ["Polymorph (Porcupine)"]           = { category = "incapacitate", iconId = 126819 },
+    ["Polymorph (Polar Bear Cub)"]      = { category = "incapacitate", iconId = 161353 },
+    ["Polymorph (Monkey)"]              = { category = "incapacitate", iconId = 161354 },
+    ["Polymorph (Penguin)"]             = { category = "incapacitate", iconId = 161355 },
+    ["Polymorph (Peacock)"]             = { category = "incapacitate", iconId = 161372 },
+    ["Polymorph (Baby Direhorn)"]       = { category = "incapacitate", iconId = 277787 },
+    ["Polymorph (Bumblebee)"]           = { category = "incapacitate", iconId = 277792 },
+    ["Freezing Trap"]                   = { category = "incapacitate", iconId = 3355 },
+    ["Freezing Trap Effect"]            = { category = "incapacitate", iconId = 3355 },
+    ["Sap"]                             = { category = "incapacitate", iconId = 6770 },
+    ["Gouge"]                           = { category = "incapacitate", iconId = 1776 },
+    ["Hex"]                             = { category = "incapacitate", iconId = 51514 },
+    ["Hex (Voodoo Totem)"]              = { category = "incapacitate", iconId = 51514 },
+    ["Hex (Raptor)"]                    = { category = "incapacitate", iconId = 210873 },
+    ["Hex (Spider)"]                    = { category = "incapacitate", iconId = 211004 },
+    ["Hex (Snake)"]                     = { category = "incapacitate", iconId = 211010 },
+    ["Hex (Cockroach)"]                 = { category = "incapacitate", iconId = 211015 },
+    ["Hex (Skeletal Hatchling)"]        = { category = "incapacitate", iconId = 269352 },
+    ["Hex (Zandalari Tendonripper)"]    = { category = "incapacitate", iconId = 277778 },
+    ["Hex (Wicker Mongrel)"]            = { category = "incapacitate", iconId = 277784 },
+    ["Repentance"]                      = { category = "incapacitate", iconId = 20066 },
+    ["Shackle Undead"]                  = { category = "incapacitate", iconId = 9484 },
+    ["Paralysis"]                       = { category = "incapacitate", iconId = 115078 },
+    ["Banish"]                          = { category = "incapacitate", iconId = 710 },
+    ["Ring of Frost"]                   = { category = "incapacitate", iconId = 113724 },
+    ["Imprison"]                        = { category = "incapacitate", iconId = 217832 },
+    ["Imprison (Honor talent)"]         = { category = "incapacitate", iconId = 217832 },
+    ["Incapacitating Roar"]             = { category = "incapacitate", iconId = 99 },
+    ["Holy Word: Chastise"]             = { category = "incapacitate", iconId = 88625 },
+    ["Sundering"]                       = { category = "incapacitate", iconId = 197214 },
+    ["Mortal Coil"]                     = { category = "incapacitate", iconId = 6789 },
+    ["Quaking Palm (Pandaren)"]         = { category = "incapacitate", iconId = 107079 },
+    ["Hibernate"]                       = { category = "incapacitate", iconId = 2637 },
+    ["Blinding Sleet"]                  = { category = "incapacitate", iconId = 207167 },
+    ["Hungering Cold"]                  = { category = "incapacitate", iconId = 49203 },
+    ["Freezing Arrow Effect"]           = { category = "incapacitate", iconId = 60210 },
+    ["Wyvern Sting"]                    = { category = "incapacitate", iconId = 19386 },
+    ["Reckless Charge (Rocket Helmet)"]= { category = "incapacitate", iconId = 13327 },
+    ["Rough Copper Bomb"]               = { category = "incapacitate", iconId = 4852 },
+    ["Large Copper Bomb"]               = { category = "incapacitate", iconId = 4853 },
+    ["Small Bronze Bomb"]               = { category = "incapacitate", iconId = 4854 },
+    ["Big Bronze Bomb"]                 = { category = "incapacitate", iconId = 4855 },
+    ["Iron Grenade"]                    = { category = "incapacitate", iconId = 4068 },
+    ["Mithril Frag Bomb"]               = { category = "incapacitate", iconId = 4069 },
+    ["Big Iron Bomb"]                   = { category = "incapacitate", iconId = 4064 },
+    ["The Big One"]                     = { category = "incapacitate", iconId = 4065 },
+    ["Hi-Explosive Bomb"]               = { category = "incapacitate", iconId = 4067 },
+    ["Thorium Grenade"]                 = { category = "incapacitate", iconId = 4066 },
+    ["Dark Iron Bomb"]                  = { category = "incapacitate", iconId = 4070 },
+    ["Fel Iron Bomb"]                   = { category = "incapacitate", iconId = 4071 },
+    ["The Bigger One"]                  = { category = "incapacitate", iconId = 4072 },
+    ["Adamantite Grenade"]              = { category = "incapacitate", iconId = 4073 },
 
-    [217832]  = "Incapacitate",    -- Imprison
-    [221527]  = "Incapacitate",    -- Imprison (Honor talent)
-    [99]      = "Incapacitate",    -- Incapacitating Roar
-    [3355]    = "Incapacitate",    -- Freezing Trap
-    [203337]  = "Incapacitate",    -- Freezing Trap (Honor talent)
-    [212365]  = "Incapacitate",    -- Freezing Trap (TODO: incorrect?)
-    [213691]  = "Incapacitate",    -- Scatter Shot
-    [118]     = "Incapacitate",    -- Polymorph
-    [28271]   = "Incapacitate",    -- Polymorph (Turtle)
-    [28272]   = "Incapacitate",    -- Polymorph (Pig)
-    [61025]   = "Incapacitate",    -- Polymorph (Snake)
-    [61305]   = "Incapacitate",    -- Polymorph (Black Cat)
-    [61780]   = "Incapacitate",    -- Polymorph (Turkey)
-    [61721]   = "Incapacitate",    -- Polymorph (Rabbit)
-    [126819]  = "Incapacitate",    -- Polymorph (Porcupine)
-    [161353]  = "Incapacitate",    -- Polymorph (Polar Bear Cub)
-    [161354]  = "Incapacitate",    -- Polymorph (Monkey)
-    [161355]  = "Incapacitate",    -- Polymorph (Penguin)
-    [161372]  = "Incapacitate",    -- Polymorph (Peacock)
-    [277787]  = "Incapacitate",    -- Polymorph (Baby Direhorn)
-    [277792]  = "Incapacitate",    -- Polymorph (Bumblebee)
-    [82691]   = "Incapacitate",    -- Ring of Frost
-    [115078]  = "Incapacitate",    -- Paralysis
-    [20066]   = "Incapacitate",    -- Repentance
-    [9484]    = "Incapacitate",    -- Shackle Undead
-    [200196]  = "Incapacitate",    -- Holy Word: Chastise
-    [1776]    = "Incapacitate",    -- Gouge
-    [6770]    = "Incapacitate",    -- Sap
-    [51514]   = "Incapacitate",    -- Hex
-    [196942]  = "Incapacitate",    -- Hex (Voodoo Totem)
-    [210873]  = "Incapacitate",    -- Hex (Raptor)
-    [211004]  = "Incapacitate",    -- Hex (Spider)
-    [211010]  = "Incapacitate",    -- Hex (Snake)
-    [211015]  = "Incapacitate",    -- Hex (Cockroach)
-    [269352]  = "Incapacitate",    -- Hex (Skeletal Hatchling)
-    [277778]  = "Incapacitate",    -- Hex (Zandalari Tendonripper)
-    [277784]  = "Incapacitate",    -- Hex (Wicker Mongrel)
-    [197214]  = "Incapacitate",    -- Sundering
-    [710]     = "Incapacitate",    -- Banish
-    [6789]    = "Incapacitate",    -- Mortal Coil
-    [107079]  = "Incapacitate",    -- Quaking Palm (Pandaren)
+    -- STUN
+    ["Hammer of Justice"]               = { category = "stun", iconId = 853 },
+    ["Kidney Shot"]                     = { category = "stun", iconId = 408 },
+    ["Leg Sweep"]                       = { category = "stun", iconId = 119381 },
+    ["Shockwave"]                       = { category = "stun", iconId = 46968 },
+    ["Shockwave (Protection)"]          = { category = "stun", iconId = 46968 },
+    ["Storm Bolt"]                      = { category = "stun", iconId = 107570 },
+    ["Asphyxiate"]                      = { category = "stun", iconId = 108194 },
+    ["Asphyxiate (Unholy)"]             = { category = "stun", iconId = 108194 },
+    ["Asphyxiate (Blood)"]              = { category = "stun", iconId = 221562 },
+    ["Gnaw"]                            = { category = "stun", iconId = 47481 },
+    ["Monstrous Blow (Mutated Ghoul)"]  = { category = "stun", iconId = 91797 },
+    ["Dead of Winter"]                  = { category = "stun", iconId = 287250 },
+    ["Chaos Nova"]                      = { category = "stun", iconId = 179057 },
+    ["Illidan's Grasp (Primary effect)"]= { category = "stun", iconId = 205630 },
+    ["Illidan's Grasp (Secondary effect)"]= { category = "stun", iconId = 208618 },
+    ["Fel Eruption"]                    = { category = "stun", iconId = 211881 },
+    ["Maim"]                            = { category = "stun", iconId = 22570 },
+    ["Rake (Prowl)"]                    = { category = "stun", iconId = 163505 },
+    ["Mighty Bash"]                     = { category = "stun", iconId = 5211 },
+    ["Overrun"]                         = { category = "stun", iconId = 202246 },
+    ["Intimidation"]                    = { category = "stun", iconId = 19577 },
+    ["Double Barrel"]                   = { category = "stun", iconId = 202589 },
+    ["Psychic Horror Censure"]          = { category = "stun", iconId = 64044 },
+    ["Holy Word: Chastise Censure"]     = { category = "stun", iconId = 200196 },
+    ["Between the Eyes"]                = { category = "stun", iconId = 199804 },
+    ["Static Charge (Capacitor Totem)"] = { category = "stun", iconId = 118905 },
+    ["Pulverize (Primal Earth Elemental)"]= { category = "stun", iconId = 118345 },
+    ["Lightning Lasso"]                 = { category = "stun", iconId = 305483 },
+    ["Axe Toss"]                        = { category = "stun", iconId = 89766 },
+    ["Meteor Strike (Infernal)"]        = { category = "stun", iconId = 171017 },
+    ["Meteor Strike (Abyssal)"]         = { category = "stun", iconId = 171018 },
+    ["Shadowfury"]                      = { category = "stun", iconId = 30283 },
+    ["Warpath"]                         = { category = "stun", iconId = 199085 },
+    ["War Stomp"]                       = { category = "stun", iconId = 20549 },
+    ["Bull Rush (Highmountain Tauren)"] = { category = "stun", iconId = 255654 },
+    ["Haymaker (Kul Tiran)"]            = { category = "stun", iconId = 287712 },
+    ["Zombie Explosion"]                = { category = "stun", iconId = 212431 },
+    ["Song of Chi-ji"]                  = { category = "stun", iconId = 198909 },
+    ["Incendiary Brew"]                 = { category = "stun", iconId = 202274 },
+    ["Blinding Light"]                  = { category = "stun", iconId = 115750 },
+    ["Bash"]                            = { category = "stun", iconId = 5211 },
+    ["Deep Freeze"]                     = { category = "stun", iconId = 44572 },
+    ["Holy Wrath"]                      = { category = "stun", iconId = 2812 },
+    ["Bash (Spirit Wolves)"]            = { category = "stun", iconId = 58861 },
+    ["Concussion Blow"]                 = { category = "stun", iconId = 12809 },
+    ["Demon Charge"]                    = { category = "stun", iconId = 54785 },
+    ["Intercept (Felguard)"]            = { category = "stun", iconId = 30153 },
+    ["Intercept Stun"]                  = { category = "stun", iconId = 25274 },
+    ["Sonic Blast (Pet)"]               = { category = "stun", iconId = 50519 },
+    ["Ravage (Pet)"]                    = { category = "stun", iconId = 50518 },
+    
+    -- OPENER STUN
+    ["Cheap Shot"]                      = { category = "opener_stun", iconId = 1833 },
+    ["Pounce"]                          = { category = "opener_stun", iconId = 9005 },
 
-    [47476]   = "Silence",         -- Strangulate
-    [204490]  = "Silence",         -- Sigil of Silence
---  [78675]   = "Silence",         -- Solar Beam
-    [202933]  = "Silence",         -- Spider Sting
-    [233022]  = "Silence",         -- Spider Sting 2 (TODO: incorrect?)
-    [217824]  = "Silence",         -- Shield of Virtue
-    [15487]   = "Silence",         -- Silence
-    [1330]    = "Silence",         -- Garrote
-    [43523]   = "Silence",         -- Unstable Affliction Silence Effect (TODO: incorrect?)
-    [196364]  = "Silence",         -- Unstable Affliction Silence Effect 2
+    -- ROOT 
+    ["Frost Nova"]                      = { category = "root", iconId = 122 },
+    ["Entangling Roots"]                = { category = "root", iconId = 339 },
+    ["Entangling Roots (Nature's Grasp)"]= { category = "root", iconId = 339 },
+    ["Chains of Ice"]                   = { category = "root", iconId = 45524 },
+    ["Deathchill (Chains of Ice)"]      = { category = "root", iconId = 204085 },
+    ["Deathchill (Remorseless Winter)"] = { category = "root", iconId = 204085 },
+    ["Freeze"]                          = { category = "root", iconId = 33395 },
+    ["Earthgrab"]                       = { category = "root", iconId = 64695 },
+    ["Earthgrab Totem"]                 = { category = "root", iconId = 51485 },
+    ["Binding Shot"]                    = { category = "root", iconId = 109248 },
+    ["Mass Entanglement"]               = { category = "root", iconId = 102359 },
+    ["Frostbite"]                       = { category = "root", iconId = 12494 },
+    ["Frostbite (Water Elemental?)"]    = { category = "root", iconId = 12494 },
+    ["Steel Trap"]                      = { category = "root", iconId = 162480 },
+    ["Tracker's Net"]                   = { category = "root", iconId = 212638 },
+    ["Super Sticky Tar"]                = { category = "root", iconId = 243760 },
+    ["Entrenched in Flame"]             = { category = "root", iconId = 233395 },
+    ["Disable"]                         = { category = "root", iconId = 116095 },
+    ["Nature's Grasp"]                  = { category = "root", iconId = 16689 },
+    ["Pin"]                             = { category = "root", iconId = 50245 },
+    ["Frost Grenade (Item)"]            = { category = "root", iconId = 13099 },
+    ["Freeze (Frost Shock)"]            = { category = "root", iconId = 63685 },
 
-    [210141]  = "Stun",            -- Zombie Explosion
-    [108194]  = "Stun",            -- Asphyxiate (Unholy)
-    [221562]  = "Stun",            -- Asphyxiate (Blood)
-    [91800]   = "Stun",            -- Gnaw (Ghoul)
-    [91797]   = "Stun",            -- Monstrous Blow (Mutated Ghoul)
-    [287254]  = "Stun",            -- Dead of Winter
-    [179057]  = "Stun",            -- Chaos Nova
-    [205630]  = "Stun",            -- Illidan's Grasp (Primary effect)
-    [208618]  = "Stun",            -- Illidan's Grasp (Secondary effect)
-    [211881]  = "Stun",            -- Fel Eruption
-    [203123]  = "Stun",            -- Maim
-    [163505]  = "Stun",            -- Rake (Prowl)
-    [5211]    = "Stun",            -- Mighty Bash
-    [202244]  = "Stun",            -- Overrun (Also a knockback)
-    [24394]   = "Stun",            -- Intimidation
-    [119381]  = "Stun",            -- Leg Sweep
-    [202346]  = "Stun",            -- Double Barrel
-    [853]     = "Stun",            -- Hammer of Justice
-    [64044]   = "Stun",            -- Psychic Horror
-    [200200]  = "Stun",            -- Holy Word: Chastise Censure
-    [1833]    = "Stun",            -- Cheap Shot
-    [408]     = "Stun",            -- Kidney Shot
-    [199804]  = "Stun",            -- Between the Eyes
-    [118905]  = "Stun",            -- Static Charge (Capacitor Totem)
-    [118345]  = "Stun",            -- Pulverize (Primal Earth Elemental)
-    [204437]  = "Stun",            -- Lightning Lasso
-    [89766]   = "Stun",            -- Axe Toss
-    [171017]  = "Stun",            -- Meteor Strike (Infernal)
-    [171018]  = "Stun",            -- Meteor Strike (Abyssal)
---  [22703]   = "Stun",            -- Infernal Awakening (doesn't seem to DR)
-    [30283]   = "Stun",            -- Shadowfury
-    [46968]   = "Stun",            -- Shockwave
-    [132168]  = "Stun",            -- Shockwave (Protection)
-    [132169]  = "Stun",            -- Storm Bolt
-    [199085]  = "Stun",            -- Warpath
-    [20549]   = "Stun",            -- War Stomp (Tauren)
-    [255723]  = "Stun",            -- Bull Rush (Highmountain Tauren)
-    [287712]  = "Stun",            -- Haymaker (Kul Tiran)
+    -- FEAR 
+    ["Fear"]                            = { category = "fear", iconId = 5782 },
+    ["Psychic Scream"]                  = { category = "fear", iconId = 8122 },
+    ["Seduction"]                       = { category = "fear", iconId = 6358 },
+    ["Intimidating Shout"]              = { category = "fear", iconId = 5246 },
+    ["Howl of Terror"]                  = { category = "fear", iconId = 5484 },
+    ["Mesmerize (Shivarra)"]            = { category = "fear", iconId = 115268 },
+    ["Blind"]                           = { category = "fear", iconId = 2094 },
+    ["Scare Beast"]                     = { category = "fear", iconId = 1513 },
+    ["Turn Evil"]                       = { category = "fear", iconId = 10326 },
+    ["Flash Bomb Fear (Item)"]          = { category = "fear", iconId = 4064 },
+    
+    -- SILENCE
+    ["Silence"]                         = { category = "silence", iconId = 15487 },
+    ["Strangulate"]                     = { category = "silence", iconId = 47476 },
+    ["Garrote - Silence"]               = { category = "silence", iconId = 1330 },
+    ["Sigil of Silence"]                = { category = "silence", iconId = 202137 },
+    ["Spider Sting"]                    = { category = "silence", iconId = 202933 },
+    ["Spider Sting 2"]                  = { category = "silence", iconId = 233022 },
+    ["Shield of Virtue"]                = { category = "silence", iconId = 215652 },
+    ["Garrote"]                         = { category = "silence", iconId = 1330 },
+    ["Unstable Affliction Silence Effect"]= { category = "silence", iconId = 196364 },
+    ["Unstable Affliction Silence Effect 2"]= { category = "silence", iconId = 233490 },
+    ["Silencing Shot"]                  = { category = "silence", iconId = 34490 },
+    ["Nether Shock"]                    = { category = "silence", iconId = 53588 },
+    ["Silenced - Improved Counterspell"]= { category = "silence", iconId = 18469 },
+    ["Silenced - Shield of the Templar"]= { category = "silence", iconId = 63529 },
+    ["Silenced - Improved Kick"]        = { category = "silence", iconId = 18425 },
+    ["Spell Lock"]                      = { category = "silence", iconId = 19244 },
+    ["Silenced - Gag Order (Shield Slam)"]= { category = "silence", iconId = 18498 },
+    ["Silenced - Gag Order (Heroic Throw?)"]= { category = "silence", iconId = 18498 },
+    ["Arcane Torrent (Runic Power)"]    = { category = "silence", iconId = 50613 },
+    ["Arcane Torrent (Mana)"]           = { category = "silence", iconId = 28730 },
+    ["Arcane Torrent (Energy)"]         = { category = "silence", iconId = 25046 },
+    
+    -- CYCLONE 
+    ["Cyclone"]                         = { category = "cyclone", iconId = 33786 },
+    ["Cyclone (Honor talent)"]          = { category = "cyclone", iconId = 33786 },
 
-    [204085]  = "Root",            -- Deathchill (Chains of Ice)
-    [233395]  = "Root",            -- Deathchill (Remorseless Winter)
-    [339]     = "Root",            -- Entangling Roots
-    [170855]  = "Root",            -- Entangling Roots (Nature's Grasp)
---  [45334]   = "Root",            -- Immobilized (Wild Charge) FIXME: only DRs with itself
-    [102359]  = "Root",            -- Mass Entanglement
-    [117526]  = "Root",            -- Binding Shot
-    [162480]  = "Root",            -- Steel Trap
---  [190927]  = "Root",            -- Harpoon FIXME: only DRs with itself
-    [212638]  = "Root",            -- Tracker's Net
-    [201158]  = "Root",            -- Super Sticky Tar
-    [122]     = "Root",            -- Frost Nova
-    [33395]   = "Root",            -- Freeze
-    [198121]  = "Root",            -- Frostbite
-    [220107]  = "Root",            -- Frostbite (Water Elemental? needs testing)
-    [233582]  = "Root",            -- Entrenched in Flame
-    [116706]  = "Root",            -- Disable
-    [64695]   = "Root",            -- Earthgrab (Totem effect)
-
-    --[[
-    [207777]  = "Disarm",          -- Dismantle
-    [233759]  = "Disarm",          -- Grapple Weapon
-    [236077]  = "Disarm",          -- Disarm
-    [236236]  = "Disarm",          -- Disarm (Prot)
-    [209749]  = "Disarm",          -- Faerie Swarm (Balance)
-    ]]
+    -- HORROR 
+    ["Psychic Horror"]                  = { category = "horror", iconId = 64044 },
+    ["Mind Bomb"]                       = { category = "horror", iconId = 205369 },
+    ["Death Coil"]                      = { category = "horror", iconId = 47860 },
+    
+    -- SCATTER 
+    ["Scatter Shot"]                    = { category = "scatter", iconId = 19503 },
+    ["Dragon's Breath"]                 = { category = "scatter", iconId = 31661 },
+    
+    -- MIND CONTROL 
+    ["Mind Control"]                    = { category = "mind_control", iconId = 605 },
+    ["Sigil of Misery"]                 = { category = "mind_control", iconId = 207684 },
+    ["Gnomish Mind Control Cap"]        = { category = "mind_control", iconId = 13181 },
+ 
+    -- DISARM 
+    ["Dismantle"]                       = { category = "disarm", iconId = 51722 },
+    ["Disarm"]                          = { category = "disarm", iconId = 676 },
+    ["Chimera Shot (Scorpid)"]          = { category = "disarm", iconId = 53359 },
+    ["Snatch (Pet)"]                    = { category = "disarm", iconId = 53543 },
+    ["Psychic Horror Disarm Effect"]    = { category = "disarm", iconId = 64058 },
 }

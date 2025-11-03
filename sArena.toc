@@ -1,7 +1,7 @@
 ## Interface: 30300
 ## Title: sArena
-## Notes: Enhanced arena frames
-## Author: Stako, edits by Aeded, Xyz
+## Notes: Enhanced arena frames for Bronzebeard(Only for English language)
+## Author: Stako, edits by Aeded, Xyz, Hannahmckay
 ## Version: 3.2
 ## OptionalDeps: ElvUI
 ## X-Category: PvP/Arena

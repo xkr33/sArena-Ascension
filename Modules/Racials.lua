@@ -13,102 +13,109 @@ sArenaMixin.defaultSettings.profile.racialCategories = {
 	["NightElf"] = false,
 }
 
+
 local racialSpells = {
-	[20549] = 120,  -- War Stomp
-	[7744] = 120,   -- Will of the Forsaken
-	[20572] = 120,   -- Blood Fury
-	[58984] = 10,   -- Shadowmeld
-	[20589] = 105,   -- Escape Artist
-	[20594] = 180,   -- Stoneform
-	[59752] = 120, -- Will to survive
-	[26297] = 180,   -- Berserking
-	[28880] = 180,   -- Gift of the Naaru
-	[59544] = 180,   -- Gift of the Naaru
-	[59545] = 180,   -- Gift of the Naaru
-	[59547] = 180,   -- Gift of the Naaru
-	[59548] = 180,   -- Gift of the Naaru
-	[59542] = 180,   -- Gift of the Naaru
-	[59543] = 180,   -- Gift of the Naaru
-	[33702] = 120,   -- Blood Fury - Caster
-	[33697] = 120,   -- Blood Fury
-	[25046] = 120,   -- Arcane Torrent - Rogue
-	[28730] = 120,   -- Arcane Torrent - Mana
-	[50613] = 120,   -- Arcane Torrent - DK
+	["War Stomp"] = 120,
+	["Will of the Forsaken"] = 120,
+	["Blood Fury"] = 120,
+	["Shadowmeld"] = 10,
+	["Escape Artist"] = 105,
+	["Stoneform"] = 180,
+	["Every Man for Himself"] = 120,  -- Will to survive
+	["Berserking"] = 180,
+	["Gift of the Naaru"] = 180,
+	["Arcane Torrent"] = 120,
 }
+
 
 local racialData = {
-	["Human"] = { texture = select(3, GetSpellInfo(59752)) },
-	["Scourge"] = { texture = select(3, GetSpellInfo(7744)) },
-	["Gnome"] = { texture = select(3, GetSpellInfo(20589))},
-	["Dwarf"] = { texture = select(3, GetSpellInfo(20594))},
-	["Orc"] = { texture = select(3, GetSpellInfo(20572))},
-	["Tauren"] = { texture = select(3, GetSpellInfo(20549))},
-	["BloodElf"] = { texture = select(3, GetSpellInfo(28730))},
-	["Troll"] = { texture = select(3, GetSpellInfo(26297))},
-	["Draenei"] = { texture = select(3, GetSpellInfo(28880))},
-	["NightElf"] = { texture = select(3, GetSpellInfo(58984))},
+	["Human"] = { spellName = "Every Man for Himself" },
+	["Scourge"] = { spellName = "Will of the Forsaken" },
+	["Gnome"] = { spellName = "Escape Artist" },
+	["Dwarf"] = { spellName = "Stoneform" },
+	["Orc"] = { spellName = "Blood Fury" },
+	["Tauren"] = { spellName = "War Stomp" },
+	["BloodElf"] = { spellName = "Arcane Torrent" },
+	["Troll"] = { spellName = "Berserking" },
+	["Draenei"] = { spellName = "Gift of the Naaru" },
+	["NightElf"] = { spellName = "Shadowmeld" },
 }
 
--- Spells that trigger a shared cd with racials
+
 local sharedSpells = {
-	[42292] = {  -- PvP trinket
+	["PvP Trinket"] = {  
 		races = {
-			["Scourge"] = 45,
-			["Human"] = 120
+			["Scourge"] = 45,  
+			["Human"] = 120    
 		}
 	}
 }
 
 local spellStartTimes = {}
-local function GetRemainingCD(spellID)
+
+local function GetRemainingCD(spellName)
 	if not spellStartTimes then
 		spellStartTimes = {}
 	end
 
 	local currTime = GetTime()
-	local duration = racialSpells[spellID]
+	local duration = racialSpells[spellName]
 
 	if not duration then
 		return 0
 	end
 
-	local startTime = spellStartTimes[spellID] or 0
+	local startTime = spellStartTimes[spellName] or 0
 	local remainingCD = math.max(0, (startTime + duration) - currTime)
 
 	return remainingCD
 end
 
-function sArenaFrameMixin:FindRacial(event, spellID, duration)
-	if ( event ~= "SPELL_CAST_SUCCESS" ) then return end
+function sArenaFrameMixin:FindRacial(event, spellParam, duration)
+	if event ~= "SPELL_CAST_SUCCESS" then return end
 
-	local _, race = UnitRace(self.unit)
-	local currentCD = GetRemainingCD(spellID)
-	if sharedSpells[spellID]
-			and sharedSpells[spellID].races[race]
-			and currentCD < sharedSpells[spellID].races[race]
-	then
-		duration = sharedSpells[spellID].races[race]
+	
+	local spellName = spellParam
+	if type(spellParam) == "number" then
+		spellName = GetSpellInfo(spellParam)
 	end
 
-	duration = duration or racialSpells[spellID]
+	if not spellName then return end
 
-	if ( duration ) then
+	local _, race = UnitRace(self.unit)
+	local currentCD = GetRemainingCD(spellName)
+	
+	if sharedSpells[spellName] 
+		and sharedSpells[spellName].races[race]
+		and currentCD < sharedSpells[spellName].races[race]
+	then
+		duration = sharedSpells[spellName].races[race]
+	end
+
+	duration = duration or racialSpells[spellName]
+
+	if duration then
 		local currTime = GetTime()
+		spellStartTimes[spellName] = currTime  -- ← FIX: Registrar el tiempo de inicio
 
-		if ( self.Racial.Texture:GetTexture() ) then
+		if self.Racial.Texture:GetTexture() then
 			self.Racial.Cooldown:SetCooldown(currTime, duration)
 		end
-
 	end
 end
 
 function sArenaFrameMixin:UpdateRacial()
-	if ( not self.race ) then
+	if not self.race then
 		local _, race = UnitRace(self.unit)
 		self.race = race
 
-		if ( self.parent.db.profile.racialCategories[self.race] ) then
-			self.Racial.Texture:SetTexture(racialData[self.race].texture)
+		if self.parent.db.profile.racialCategories[self.race] and racialData[self.race] then
+			local spellName = racialData[self.race].spellName
+			local texture = select(3, GetSpellInfo(spellName))
+			
+			if texture then
+				self.Racial.Texture:SetTexture(texture)
+			end
 		end
 	end
 end

@@ -191,10 +191,12 @@ function sArenaMixin:OnEvent(event, ...)
             end
 
             if (destGUID == UnitGUID("arena" .. i)) then
-                ArenaFrame:FindInterrupt(combatEvent, spellID)
+			   local spellName = spellID and GetSpellInfo(spellID) or nil
+			   
+               ArenaFrame:FindInterrupt(combatEvent, spellName or spellID)
 
                 if (auraType == "DEBUFF") then
-                    ArenaFrame:FindDR(combatEvent, spellID)
+                    ArenaFrame:FindDR(combatEvent, spellName or spellID)
                 end
 
                 return
@@ -689,6 +691,7 @@ function sArenaFrameMixin:OnLoad()
     self:SetAttribute("*type2", "focus")
     self:SetAttribute("unit", unit)
     self.unit = unit
+	self.isInStealth = false
 
     sArena_CastBar(self.CastBar, unit, false, true)
 
@@ -843,6 +846,45 @@ end
 function sArenaFrameMixin:UpdatePlayer(unitEvent, unitTarget)
     local unit = unitTarget or self.unit
 
+    
+    if unitEvent == "destroyed" then
+        self.isInStealth = true
+        
+        if not self.savedClassIconTexture then
+            self.savedClassIconTexture = self.currentClassIconTexture
+            self.savedSpecTexture = self.specTexture
+            self.savedClass = self.class
+        end
+        
+        self.ClassIcon:SetTexture("Interface\\Icons\\Inv_misc_questionmark")
+        self.ClassIcon:SetTexCoord(0, 1, 0, 1)
+        self.currentClassIconTexture = "Interface\\Icons\\Inv_misc_questionmark"
+        
+        
+        self.HealthBar:SetStatusBarColor(0.5, 0.5, 0.5)
+        self.PowerBar:SetStatusBarColor(0.5, 0.5, 0.5)
+        
+        return
+    end
+
+    
+    if unitEvent == "seen" and self.isInStealth then
+        self.isInStealth = false
+        
+        if self.savedClassIconTexture then
+            self.currentClassIconTexture = nil 
+            self.specTexture = self.savedSpecTexture
+            self.class = self.savedClass
+            self.savedClassIconTexture = nil
+            self.savedSpecTexture = nil
+            self.savedClass = nil
+        end
+        
+        
+        self:GetClassAndSpec()
+        self:UpdateClassIcon()
+    end
+
     self:GetClassAndSpec()
     self:FindAura()
 
@@ -852,13 +894,16 @@ function sArenaFrameMixin:UpdatePlayer(unitEvent, unitTarget)
         end)
     end
 
-    if not InCombatLockdown() and unitEvent and (unitEvent == "cleared" or unitEvent == "destroyed") then
+    if not InCombatLockdown() and unitEvent and unitEvent == "cleared" then
         self:Hide()
         return
     end
 
     if ((unitEvent and unitEvent ~= "seen") or not UnitExists(unit)) then
-        self:SetMysteryPlayer()
+        
+        if not self.isInStealth then
+            self:SetMysteryPlayer()
+        end
         return
     end
 
@@ -940,7 +985,8 @@ end
 function sArenaFrameMixin:UpdateClassIcon()
     if not self then return end
 
-    if (self.currentAuraSpellID and self.currentAuraDuration > 0 and self.currentClassIconStartTime ~= self.currentAuraStartTime) then
+    
+    if (self.currentAuraSpellName and self.currentAuraDuration > 0 and self.currentClassIconStartTime ~= self.currentAuraStartTime) then
         self.ClassIconCooldown:SetCooldown(self.currentAuraStartTime, self.currentAuraDuration)
         self.currentClassIconStartTime = self.currentAuraStartTime
     elseif (self.currentAuraDuration and self.currentAuraDuration == 0) then
@@ -951,7 +997,8 @@ function sArenaFrameMixin:UpdateClassIcon()
     local unknown = "Interface\\Icons\\Inv_misc_questionmark"
     local texture = self.class and "class" or unknown
 
-    if self.currentAuraSpellID then
+   
+    if self.currentAuraSpellName then
         texture = self.currentAuraTexture
     elseif self.specTexture and db.profile.specIcons then
         texture = "Interface\\Icons\\" .. self.specTexture
@@ -964,10 +1011,11 @@ function sArenaFrameMixin:UpdateClassIcon()
     self.currentClassIconTexture = texture
 
     if (texture == "class") then
-        self.ClassIcon:SetTexture(iconPath, true);
-        self.ClassIcon:SetTexCoord(unpack(classIcons[self.class]));
+        self.ClassIcon:SetTexture(iconPath, true)
+        self.ClassIcon:SetTexCoord(unpack(classIcons[self.class]))
         return
     end
+    
     self.ClassIcon:SetTexCoord(0, 1, 0, 1)
     self.ClassIcon:SetTexture(texture)
 end
@@ -1056,29 +1104,31 @@ end
 
 function sArenaFrameMixin:FindAura()
     local unit = self.unit
-    local currentSpellID, currentDuration, currentExpirationTime, currentTexture = nil, 0, 0, nil
+    local currentSpellName, currentDuration, currentExpirationTime, currentTexture = nil, 0, 0, nil
 
-    if (self.currentInterruptSpellID) then
-        currentSpellID = self.currentInterruptSpellID
+   
+    if (self.currentInterruptSpellName) then
+        currentSpellName = self.currentInterruptSpellName
         currentDuration = self.currentInterruptDuration
         currentExpirationTime = self.currentInterruptExpirationTime
         currentTexture = self.currentInterruptTexture
     end
 
+    
     for i = 1, 2 do
         local filter = (i == 1 and "HELPFUL" or "HARMFUL")
 
         for n = 1, 30 do
-            local _, _, texture, _, _, duration, expirationTime, _, _, _, spellID = UnitAura(unit, n, filter)
+            local name, _, texture, _, _, duration, expirationTime = UnitAura(unit, n, filter)
 
-            if (not spellID) then
+            if (not name) then
                 break
             end
 
-            if (auraList[spellID]) then
-                if (not currentSpellID or auraList[spellID] < auraList[currentSpellID]) then
-                    currentSpellID = spellID
-
+            
+            if (auraList[name]) then
+                if (not currentSpellName or auraList[name] < auraList[currentSpellName]) then
+                    currentSpellName = name
                     currentDuration = duration
                     currentExpirationTime = expirationTime
                     currentTexture = texture
@@ -1087,15 +1137,14 @@ function sArenaFrameMixin:FindAura()
         end
     end
 
-    if (currentSpellID) then
-
-        self.currentAuraSpellID = currentSpellID
+    
+    if (currentSpellName) then
+        self.currentAuraSpellName = currentSpellName
         self.currentAuraStartTime = currentExpirationTime - currentDuration
         self.currentAuraDuration = currentDuration
         self.currentAuraTexture = currentTexture
     else
-
-        self.currentAuraSpellID = nil
+        self.currentAuraSpellName = nil
         self.currentAuraStartTime = 0
         self.currentAuraDuration = 0
         self.currentAuraTexture = nil
@@ -1104,31 +1153,47 @@ function sArenaFrameMixin:FindAura()
     self:UpdateClassIcon()
 end
 
-function sArenaFrameMixin:FindInterrupt(event, spellID)
-    local interruptDuration = interruptList[spellID]
+function sArenaFrameMixin:FindInterrupt(event, spellParam)
+    
+    local spellName = spellParam
+    if type(spellParam) == "number" then
+        spellName = GetSpellInfo(spellParam)
+    end
+
+    if not spellName then
+        return
+    end
+
+    local interruptDuration = interruptList[spellName]
 
     if (not interruptDuration) then
         return
     end
+    
     if (event ~= "SPELL_INTERRUPT" and event ~= "SPELL_CAST_SUCCESS") then
         return
     end
 
     local unit = self.unit
-    local _, _, _, _, _, _, _, notInterruptable = UnitChannelInfo(unit);
+    local _, _, _, _, _, _, _, notInterruptable = UnitChannelInfo(unit)
 
     if (event == "SPELL_INTERRUPT" or notInterruptable == false) then
-        self.currentInterruptSpellID = spellID
+        self.currentInterruptSpellName = spellName
         self.currentInterruptDuration = interruptDuration
         self.currentInterruptExpirationTime = GetTime() + interruptDuration
-        self.currentInterruptTexture = select(3, GetSpellInfo(spellID))
+        self.currentInterruptTexture = select(3, GetSpellInfo(spellName))
+        
         self:FindAura()
-        After(interruptDuration, function()
-            self.currentInterruptSpellID = nil
-            self.currentInterruptDuration = 0
-            self.currentInterruptExpirationTime = 0
-            self.currentInterruptTexture = nil
-            self:FindAura()
+        
+        
+        C_Timer.After(interruptDuration, function()
+            if self.currentInterruptSpellName == spellName then
+                self.currentInterruptSpellName = nil
+                self.currentInterruptDuration = 0
+                self.currentInterruptExpirationTime = 0
+                self.currentInterruptTexture = nil
+                self:FindAura()
+            end
         end)
     end
 end
@@ -1286,9 +1351,9 @@ function sArenaMixin:Test()
             end
             frame.PowerBar:SetStatusBarColor(0, 0, 1, 1)
 
-            frame:FindDR("SPELL_AURA_APPLIED_DUMMY", 10890)
-            frame:FindDR("SPELL_AURA_APPLIED_DUMMY", 28271) -- poly icon
-            frame:FindDR("SPELL_AURA_APPLIED_DUMMY", 8643)
+            frame:FindDR("SPELL_AURA_APPLIED_DUMMY", "Hammer of Justice")
+            frame:FindDR("SPELL_AURA_APPLIED_DUMMY", "Polymorph")
+            frame:FindDR("SPELL_AURA_APPLIED_DUMMY", "Fear")
 
             frame.CastBar.fadeOut = nil
             frame.CastBar:Show()

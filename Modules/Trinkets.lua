@@ -1,13 +1,14 @@
 local GetTime = GetTime
 
+
 local trinketSpells = {
-	[42292] = 120, -- Trinket
-  	[59752] = 120, -- Will to survive	
+	["PvP Trinket"] = 120,
+	["Every Man for Himself"] = 120,  -- Will to survive (Humano)
 }
 
--- Spells that trigger a shared cd with pvp trinkets
+
 local sharedSpells = {
-	[7744] = 45 -- Will of the forsaken
+	["Will of the Forsaken"] = 45
 }
 
 local trinketData = {
@@ -17,39 +18,47 @@ local trinketData = {
 }
 
 local spellStartTimes = {}
-local function GetRemainingCD(spellID)
+
+local function GetRemainingCD(spellName)
 	if not spellStartTimes then
 		spellStartTimes = {}
 	end
 
 	local currTime = GetTime()
-	local duration = trinketSpells[spellID]
+	local duration = trinketSpells[spellName]
 
 	if not duration then
 		return 0
 	end
 
-	local startTime = spellStartTimes[spellID] or 0
+	local startTime = spellStartTimes[spellName] or 0
 	local remainingCD = math.max(0, (startTime + duration) - currTime)
 
 	return remainingCD
 end
 
-function sArenaFrameMixin:FindTrinket(event, spellID, duration)
-    if ( event ~= "SPELL_CAST_SUCCESS" ) then return end
+function sArenaFrameMixin:FindTrinket(event, spellParam, duration)
+    if event ~= "SPELL_CAST_SUCCESS" then return end
 
-	local currentCD = GetRemainingCD(spellID)
-	if sharedSpells[spellID]
-		and currentCD < sharedSpells[spellID] 
-	then
-		duration = sharedSpells[spellID]
+	
+	local spellName = spellParam
+	if type(spellParam) == "number" then
+		spellName = GetSpellInfo(spellParam)
 	end
 
-    duration = duration or trinketSpells[spellID]
+	if not spellName then return end
 
-    if ( duration ) then
+	local currentCD = GetRemainingCD(spellName)
+	if sharedSpells[spellName] and currentCD < sharedSpells[spellName] then
+		duration = sharedSpells[spellName]
+	end
+
+    duration = duration or trinketSpells[spellName]
+
+    if duration then
         local currTime = GetTime()
-		self.Trinket.spellID = spellID
+		spellStartTimes[spellName] = currTime  -- FIX Ascension
+		self.Trinket.spellName = spellName
 		self.Trinket.Cooldown:SetCooldown(currTime, duration)
 	end
 end
@@ -57,17 +66,17 @@ end
 function sArenaFrameMixin:UpdateTrinket()
 	local _, _, raceId = UnitRace(self.unit)
 	local faction = UnitFactionGroup(self.unit)
-	if (raceId == 1) then
+	if raceId == 1 then  -- Humano
 		self.Trinket.Texture:SetTexture(trinketData["Human"].texture)
 	else 
-		if (faction) then
+		if faction then
 			self.Trinket.Texture:SetTexture(trinketData[faction].texture)
 		end
 	end
 end
 
 function sArenaFrameMixin:ResetTrinket()
-	self.Trinket.spellID = nil
+	self.Trinket.spellName = nil
     self.Trinket.Texture:SetTexture(nil)
     self.Trinket.Cooldown:Clear()
     self:UpdateTrinket()
